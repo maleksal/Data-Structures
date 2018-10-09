@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TRUE 1
+#define FALSE 0
+
+// create a linked list
+struct node
+{
+    int data;
+    struct node *next;
+};
+typedef struct node node;
+
+node *top;
+
+// initialize stack
+void initialize()
+{
+    top = NULL;
+}
+
+// Push onto the stack
+void push(int value)
+{
+    node *tmp;
+    tmp = malloc(sizeof(node));
+    tmp -> data = value;
+    tmp -> next = top;
+    top = tmp;
+}
+
+// Delete the topmost node
+int pop()
+{
+    node *tmp;
+    int n;
+    tmp = top;
+    n = tmp->data;
+    top = top->next;
+    free(tmp);
+    return n;
+}
+
+// return data at the top of the stack
+int Top()
+{
+    return top->data;
+}
+
+// Check if the stack is empty
+int isempty()
+{
+    return top==NULL;
+}
+
+void display(node *head)
+{
+    if(head == NULL)
+    {
+        printf("NULL\n");
+    }
+    else
+    {
+        printf("%d\n", head -> data);
+        display(head->next);
+    }
+}
+
+// Test
+int main()
+{
+    initialize();
+    push(10);
+    push(20);
+    push(30);
+    printf("The top is %d\n",Top());
+    pop();
+    printf("The top after pop is %d\n",Top());
+    display(top);
+    return 0;
+}
